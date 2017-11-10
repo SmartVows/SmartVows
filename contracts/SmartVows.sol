@@ -2,9 +2,10 @@ pragma solidity ^0.4.17;
 
 
 import './Ownable.sol';
+import './Util.sol';
 
 
-contract SmartVows is Ownable {
+contract SmartVows is Ownable, Util {
 
     // partners for contract
     string public partner1;
@@ -62,13 +63,44 @@ contract SmartVows is Ownable {
     // Declare Life event structure
     event LifeEvent(string name, string description, string url);
 
-    function SmartVows(string _partner1, string _partner2, uint256 _weddingDate, string url) public{
+    function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, uint256 _weddingDate, string url) public{
         partner1 = _partner1;
         partner2 = _partner2;
+        partner1_address = _partner1_address;
+        //check if partner 1 address is present
+        if(_partner1_address != address(0)){
+            //transfer ownership
+            transferOwnership(partner1_address);
+        }
+        partner2_address = _partner2_address;
         weddingDate = _weddingDate;
         marriageStatus = "married";
-        lifeEvents.push(Event(block.timestamp, "Marriage", "Marriage registration", url));
-        LifeEvent("Marrigage", "Marriage registration", url);
+        addLifeEvent("Marriage", "Marriage registration", url);
+    }
+
+    function addLifeEvent(string name, string description, string url) private {
+        lifeEvents.push(Event(block.timestamp, name, description, url));
+        LifeEvent(name, description, url);
+    }
+
+    // Add Partner 1 address only if by owner and already not present
+    function addPartner1Address(address _partner1_address) public onlyOwner{
+        require(partner1_address == address(0));
+        partner1_address = _partner1_address;
+        transferOwnership(partner1_address);
+    }
+
+    // Add Partner 2 address only if by owner and already not present
+    function addPartner2Address(address _partner2_address) public onlyOwner{
+        require(partner2_address == address(0));
+        partner2_address = _partner2_address;
+    }
+
+    // Update Marriage status
+    function updateMarriageStatus(bytes32 _marriageStatus) public {
+        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
+        marriageStatus = _marriageStatus;
+        addLifeEvent("Marriage status updated", strConcat("Marriage status upodated by ", toString(msg.sender)), "");
     }
 
 
