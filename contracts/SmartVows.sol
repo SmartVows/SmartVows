@@ -23,15 +23,23 @@ contract SmartVows is Ownable, Util {
     // Marriage License Image
     bytes public marriageLicenceImage;
 
-    // Marriage License Image
+    // prenup Image
     bytes public prenupImage;
 
-    // last Will Image
+    // Last Will Image
     bytes public lastWillImage;
 
-    // partners eth address
+    // Partners eth address
     address public partner1_address;
     address public partner2_address;
+
+    // Partners Vows
+    string public partner1_vows;
+    string public partner2_vows;
+
+    // Partners Signed
+    bool public partner1_signed;
+    bool public partner2_signed;
 
     // signed the contract
     bool public is_signed;
@@ -100,7 +108,68 @@ contract SmartVows is Ownable, Util {
     function updateMarriageStatus(bytes32 _marriageStatus) public {
         require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
         marriageStatus = _marriageStatus;
-        addLifeEvent("Marriage status updated", strConcat("Marriage status upodated by ", toString(msg.sender)), "");
+        addLifeEvent("Marriage status updated", strConcat("Marriage status updated by ", toString(msg.sender)), "");
+    }
+
+    // Sign the contract
+    function sign() public {
+        require(msg.sender == partner1_address || msg.sender == partner2_address);
+        if(msg.sender == partner1_address){
+            partner1_signed = true;
+        }else {
+            partner2_signed = true;
+        }
+        addLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)), "");
+    }
+
+    // Save coupleImage hash
+    function saveCoupleImage(bytes _coupleImage) public onlyOwner{
+        coupleImage = _coupleImage;
+    }
+
+    // Save marriage licence image hash
+    function saveMarriageLicenceImage(bytes _marriageLicenceImage) public onlyOwner{
+        marriageLicenceImage = _marriageLicenceImage;
+    }
+
+    // Save prenup image hash
+    function savePrenupImage(bytes _prenupImage) public onlyOwner{
+        prenupImage = _prenupImage;
+    }
+
+    // Save last will image hash
+    function saveLastWillImage(bytes _lastWillImage) public onlyOwner{
+        lastWillImage = _lastWillImage;
+    }
+
+    // Save Brides maid only once
+    function setBridesmaid(string _bridesmaid) public onlyOwner{
+        require(bytes(bridesmaid).length == 0);
+        bridesmaid = _bridesmaid;
+    }
+
+    // Save grooms men only once
+    function setGroomsmen(string _groomsmen) public onlyOwner{
+        require(bytes(groomsmen).length == 0);
+        groomsmen = _groomsmen;
+    }
+
+    // Save officiant only once
+    function setOfficiant(string _officiant) public onlyOwner{
+        require(bytes(officiant).length == 0);
+        officiant = _officiant;
+    }
+
+    // Save witness only once
+    function setWitness(string _witness) public onlyOwner{
+        require(bytes(witness).length == 0);
+        witness = _witness;
+    }
+
+    // Save Location only once
+    function setLocation(string _location) public onlyOwner{
+        require(bytes(location).length == 0);
+        location = _location;
     }
 
 
