@@ -83,10 +83,15 @@ contract SmartVows is Ownable, Util {
         partner2_address = _partner2_address;
         weddingDate = _weddingDate;
         marriageStatus = "married";
-        addLifeEvent("Marriage", "Marriage registration", url);
+        saveLifeEvent("Marriage", "Marriage registration", url);
     }
 
-    function addLifeEvent(string name, string description, string url) private {
+    // Add Life event
+    function addLifeEvent(string name, string description, string url) public onlyOwner{
+        saveLifeEvent(name, description, url);
+    }
+
+    function saveLifeEvent(string name, string description, string url) private {
         lifeEvents.push(Event(block.timestamp, name, description, url));
         LifeEvent(name, description, url);
     }
@@ -108,7 +113,7 @@ contract SmartVows is Ownable, Util {
     function updateMarriageStatus(bytes32 _marriageStatus) public {
         require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
         marriageStatus = _marriageStatus;
-        addLifeEvent("Marriage status updated", strConcat("Marriage status updated by ", toString(msg.sender)), "");
+        saveLifeEvent("Marriage status updated", strConcat("Marriage status updated by ", toString(msg.sender)), "");
     }
 
     // Sign the contract
@@ -119,7 +124,7 @@ contract SmartVows is Ownable, Util {
         }else {
             partner2_signed = true;
         }
-        addLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)), "");
+        saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)), "");
     }
 
     // Save coupleImage hash
