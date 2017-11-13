@@ -124,6 +124,9 @@ contract SmartVows is Ownable, Util {
         }else {
             partner2_signed = true;
         }
+        if(partner1_signed && partner2_signed){// if both signed then make the contract as signed
+            is_signed = true;
+        }
         saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)), "");
     }
 
@@ -175,6 +178,18 @@ contract SmartVows is Ownable, Util {
     function setLocation(string _location) public onlyOwner{
         require(bytes(location).length == 0);
         location = _location;
+    }
+
+    // Save partner 1 vows
+    function setPartner1_vows(string _partner1_vows) public {
+        require(msg.sender == partner1_address);
+        partner1_vows = _partner1_vows;
+    }
+
+    // Save partner 2 vows
+    function setPartner2_vows(string _partner2_vows) public {
+        require(msg.sender == partner2_address);
+        partner2_vows = _partner2_vows;
     }
 
 
