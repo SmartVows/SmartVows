@@ -147,25 +147,26 @@ contract SmartVows is Ownable, Util {
         }
     }
     
-    // Update coupleImage hash, either partner can
-    function saveCoupleImage(bytes _coupleImageIPFShash) public{
-        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
-        coupleImageIPFShash = _coupleImageIPFShash;
-    }
-
-    // Update marriage licence image hash, either partner can
-    function saveMarriageLicenceImageIPFShash(bytes _marriageLicenceImageIPFShash) public{
-        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
-        marriageLicenceImageIPFShash = _marriageLicenceImageIPFShash;
-    }
-
     // Update prenup text, but only if both partners have previously agreed to update the prenup
-    function savePrenupText(string _prenupAgreement) public{
+    function updatePrenup(string _prenupAgreement) public{
         require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_prenup_update == true)&&(partner2_voted_prenup_update == true));
         prenupAgreement = _prenupAgreement;
         partner1_voted_prenup_update = false;
         partner2_voted_prenup_update = false;
     }
+    
+    // Update coupleImage hash, either partner can
+    function updateCoupleImageIPFShash(bytes _coupleImageIPFShash) public{
+        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
+        coupleImageIPFShash = _coupleImageIPFShash;
+    }
+
+    // Update marriage licence image hash, either partner can
+    function updateMarriageLicenceImageIPFShash(bytes _marriageLicenceImageIPFShash) public{
+        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
+        marriageLicenceImageIPFShash = _marriageLicenceImageIPFShash;
+    }
+
     
     // Update partner 1 vows only once
     function updatePartner1_vows(string _partner1_vows) public {
