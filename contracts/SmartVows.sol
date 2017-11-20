@@ -31,12 +31,12 @@ contract SmartVows is Ownable, Util {
     // Marriage License Image Hash
     bytes public marriageLicenceImageIPFShash;
 
-    // prenup Text
-    string public prenupAgreement;
+    //prenup Image
+    bytes public prenupImageIPFShash;
     
-    // Last Will and Testaments
-    string public partner1_will;
-    string public partner2_will;
+    // Last Will Images
+    bytes public partner1WillIPFShash;
+    bytes public partner2WillIPFShash;
 
     // Partners Signed Marriage Contract
     bool public partner1_signed;
@@ -46,10 +46,10 @@ contract SmartVows is Ownable, Util {
     bool public partner1_voted_prenup_update;
     bool public partner2_voted_prenup_update;
     
+    //Partners Voted to update the marriage status
     bool public partner1_voted_update_marriage_status;
     bool public partner2_voted_update_marriage_status;
     
-
     // signed the contract
     bool public is_signed;
     
@@ -74,7 +74,7 @@ contract SmartVows is Ownable, Util {
     // Declare Life event structure
     event LifeEvent(string name, string description, string mesg);
         
-    function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, uint256 _weddingDate, string _maritalStatus, string _officiant, string _witness, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{
+    function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, uint256 _weddingDate, string _maritalStatus, string _officiant, string _witness, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash, bytes _prenupImageIPFShash, bytes _partner1WillIPFShash, bytes _partner2WillIPFShash) public{
         
         partner1_name = _partner1;
         partner2_name = _partner2;  
@@ -87,15 +87,18 @@ contract SmartVows is Ownable, Util {
         location=_location;
         coupleImageIPFShash=_coupleImageIPFShash;
         marriageLicenceImageIPFShash=_marriageLicenceImageIPFShash;
-        
-        //Transfer ownership from SmartVows to Partner 1
-        transferOwnership(partner1_address);
+        prenupImageIPFShash = _prenupImageIPFShash;
+        partner1WillIPFShash = _partner1WillIPFShash;
+        partner2WillIPFShash = _partner2WillIPFShash;
         
         //Record contract creation in events
         saveLifeEvent("Marriage", "Blockchain Marriage contract created","");
+        
+        //Transfer ownership from SmartVows to Partner 1
+        transferOwnership(partner1_address);
     }
 
-// Add Life event, either partner can update
+    // Add Life event, either partner can update
     function addLifeEvent(string name, string description, string mesg) public{
         require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
         saveLifeEvent(name, description, mesg);
@@ -104,6 +107,18 @@ contract SmartVows is Ownable, Util {
     function saveLifeEvent(string name, string description, string mesg) private {
         lifeEvents.push(Event(block.timestamp, name, description, mesg));
         LifeEvent(name, description, mesg);
+    }
+    
+    // Update partner 1 vows only once
+    function updatePartner1_vows(string _partner1_vows) public {
+        require((msg.sender == owner || msg.sender == partner1_address) && (bytes(partner1_vows).length == 0));
+        partner1_vows = _partner1_vows;
+    }
+
+    // Update partner 2 vows only once
+    function updatePartner2_vows(string _partner2_vows) public {
+        require((msg.sender == owner || msg.sender == partner2_address) && (bytes(partner2_vows).length == 0));
+        partner2_vows = _partner2_vows;
     }
 
     // Update Marriage status, but only if both partners have previously agreed to update the prenup
@@ -146,15 +161,7 @@ contract SmartVows is Ownable, Util {
             partner2_voted_prenup_update = true;
         }
     }
-    
-    // Update prenup text, but only if both partners have previously agreed to update the prenup
-    function updatePrenup(string _prenupAgreement) public{
-        require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_prenup_update == true)&&(partner2_voted_prenup_update == true));
-        prenupAgreement = _prenupAgreement;
-        partner1_voted_prenup_update = false;
-        partner2_voted_prenup_update = false;
-    }
-    
+
     // Update coupleImage hash, either partner can update
     function updateCoupleImageIPFShash(bytes _coupleImageIPFShash) public{
         require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
@@ -167,28 +174,24 @@ contract SmartVows is Ownable, Util {
         marriageLicenceImageIPFShash = _marriageLicenceImageIPFShash;
     }
 
-    // Update partner 1 vows only once
-    function updatePartner1_vows(string _partner1_vows) public {
-        require((msg.sender == owner || msg.sender == partner1_address) && (bytes(partner1_vows).length == 0));
-        partner1_vows = _partner1_vows;
-    }
-
-    // Update partner 2 vows only once
-    function updatePartner2_vows(string _partner2_vows) public {
-        require((msg.sender == owner || msg.sender == partner2_address) && (bytes(partner2_vows).length == 0));
-        partner2_vows = _partner2_vows;
+    // Update prenup image, but only if both partners have voted to update the prenup
+    function updatePrenupImageIPFShash(bytes _newPrenupImageIPFShash) public{
+        require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_prenup_update == true)&&(partner2_voted_prenup_update == true));
+        prenupImageIPFShash = _newPrenupImageIPFShash;
+        partner1_voted_prenup_update = false;
+        partner2_voted_prenup_update = false;
     }
     
     // Update partner 1 will, only partner 1 can update
-    function updatePartner1_will(string _partner1_will) public {
+    function updatePartner1_Will_IPFS_Hash(bytes _partner1WillIPFShash) public {
         require(msg.sender == partner1_address);
-        partner1_will = _partner1_will;
+        partner1WillIPFShash = _partner1WillIPFShash;
     }
 
     // Update partner 2 will, only partner 2 can update
-    function updatePartner2_will(string _partner2_will) public {
+    function updatePartner2_Will_IPFS_Hash(bytes _partner2WillIPFShash) public {
         require(msg.sender == partner2_address);
-        partner2_will = _partner2_will;
+        partner2WillIPFShash = _partner2WillIPFShash;
     }
-
+    
 }
