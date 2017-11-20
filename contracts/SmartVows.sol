@@ -1,15 +1,17 @@
 pragma solidity ^0.4.17;
 
+//SmartVows Marriage Smart Contract for Partner 1 and Partner 2
+
 import './Ownable.sol';
 import './Util.sol';
 
 contract SmartVows is Ownable, Util {
 
-    // Married partner names
+    // Names of marriage partners
     string public partner1_name;
     string public partner2_name;
     
-    // Partners eth address
+    // Partners' eth address
     address public partner1_address;
     address public partner2_address;
     
@@ -43,6 +45,10 @@ contract SmartVows is Ownable, Util {
     // Partners Voted to update the prenup
     bool public partner1_voted_prenup_update;
     bool public partner2_voted_prenup_update;
+    
+    bool public partner1_voted_update_marriage_status;
+    bool public partner2_voted_update_marriage_status;
+    
 
     // signed the contract
     bool public is_signed;
@@ -66,7 +72,7 @@ contract SmartVows is Ownable, Util {
     }
 
     // Declare Life event structure
-    event LifeEvent(string name, string description, string url);
+    event LifeEvent(string name, string description, string mesg);
         
     function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, uint256 _weddingDate, string _maritalStatus, string _officiant, string _witness, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{
         
@@ -100,11 +106,14 @@ contract SmartVows is Ownable, Util {
         LifeEvent(name, description, mesg);
     }
 
-    // Update Marriage status, either partner can update
+    // Update Marriage status, but only if both partners have previously agreed to update the prenup
     function updateMaritalStatus(string _maritalStatus) public {
-        require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
+        //require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
+        require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_update_marriage_status == true)&&(partner2_voted_update_marriage_status == true));
         maritalStatus = _maritalStatus;
         saveLifeEvent("Marriage status updated", strConcat("Marriage status updated by", toString(msg.sender)),"");
+        partner1_voted_update_marriage_status = false;
+        partner2_voted_update_marriage_status = false;
     }
 
     // Sign the contract, both partners should sign
@@ -118,7 +127,17 @@ contract SmartVows is Ownable, Util {
         saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)),"");
     }
     
-    //Function to vote to allow for updating prenup, both must vote true
+        //Function to vote to allow for updating marital status, both partners must vote true
+        function voteToUpdateMaritalStatus() public {
+        if(msg.sender == partner1_address){
+            partner1_voted_update_marriage_status = true;
+        }
+        if(msg.sender == partner2_address){
+            partner2_voted_update_marriage_status = true;
+        }
+    }
+    
+    //Function to vote to allow for updating prenup, both partners must vote true
     function voteToUpdatePrenup() public {
         if(msg.sender == partner1_address){
             partner1_voted_prenup_update = true;
