@@ -1,0 +1,40 @@
+<script src="http://raw.githubusercontent.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script><script>// <![CDATA[
+web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
+
+		function printAccountBalance() {
+				var GET = {};
+				var query = window.location.search.substring(1).split("&");
+				for (var i = 0, max = query.length; i < max; i++)
+				{
+					if (query[i] === "") // check for trailing & with no param
+						continue;
+					var param = query[i].split("=");
+					GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+				}
+				var account = GET.account;
+
+				var balanceWei = web3.eth.getBalance(account).toNumber();
+				var balance = web3.fromWei(balanceWei, 'ether');
+
+				document.write('[' + account + ']<br><br>')
+				document.write(balance + ' Ether');			
+		}
+// ]]></script>
+<h2>Ethereum Account Explorer built on INFURA</h2>
+<form method="GET" action="testpage">Enter an account: <input type="text" size="50" name="account" /><input type="submit" /></form>
+<br />
+<p>Latest Block:<script>// <![CDATA[
+document.write(web3.eth.blockNumber + "<br><br>");
+// ]]></script></p>
+<p>Account Balance:<script>// <![CDATA[
+printAccountBalance();
+// ]]></script></p>
+<script>// <![CDATA[
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55627494-1', 'auto');
+  ga('send', 'pageview');
+// ]]></script>
