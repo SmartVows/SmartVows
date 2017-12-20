@@ -1,5 +1,5 @@
-<script src="http://raw.githubusercontent.com/ethereum/web3.js/0.16.0/dist/web3.min.js"></script><script>// <![CDATA[
-web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIUMTUTORIAL"));
+<script>// <![CDATA[
+web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/bHphL2nrfi5fXAb3UvAY"));
 
 		function printAccountBalance() {
 				var GET = {};
@@ -13,23 +13,36 @@ web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/MEDIU
 				}
 				var account = GET.account;
 
-				var balanceWei = web3.eth.getBalance(account).toNumber();
-				var balance = web3.fromWei(balanceWei, 'ether');
+var abi = 
+[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"messages","outputs":[{"name":"date","type":"uint256"},{"name":"nameFrom","type":"string"},{"name":"text","type":"string"},{"name":"url","type":"string"},{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"nameFrom","type":"string"},{"name":"text","type":"string"},{"name":"url","type":"string"}],"name":"sendMessage","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"marriageDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"majorEvents","outputs":[{"name":"date","type":"uint256"},{"name":"name","type":"string"},{"name":"description","type":"string"},{"name":"url","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"description","type":"string"},{"name":"url","type":"string"}],"name":"setMajorEvent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"partner2","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"partner1","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_dst","type":"address"},{"name":"_value","type":"uint256"},{"name":"_data","type":"bytes"}],"name":"execute","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"status","type":"string"},{"name":"url","type":"string"}],"name":"setStatus","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"vows","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"marriageStatus","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"numberOfMajorEvents","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_partner1","type":"string"},{"name":"_partner2","type":"string"},{"name":"_vows","type":"string"},{"name":"url","type":"string"}],"name":"createMarriage","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"numberOfMessages","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_owner","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"description","type":"string"},{"indexed":false,"name":"url","type":"string"}],"name":"MajorEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"description","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"value","type":"uint256"}],"name":"MessageSent","type":"event"}]
+;
+var MyContract = web3.eth.contract(abi);
 
-				document.write('[' + account + ']<br><br>')
-				document.write(balance + ' Ether');			
+// initiate contract for an address
+var myContractInstance = MyContract .at(account);
+
+// call constant function (synchronous way)
+var owner = myContractInstance .owner.call();
+document.write(owner + ' Owner');	
+
+var partner = myContractInstance .partner1.call();
+document.write('<br><br>Partner= ' + partner);	
+
+
+
+
+
 		}
 // ]]></script>
 <h2>Ethereum Account Explorer built on INFURA</h2>
-<form method="GET" action="testpage">Enter an account: <input type="text" size="50" name="account" /><input type="submit" /></form>
+<form method="GET" action="testpage2">Enter an account: <input type="text" size="50" name="account" /><input type="submit" /></form>
 <br />
 <p>Latest Block:<script>// <![CDATA[
 document.write(web3.eth.blockNumber + "<br><br>");
 // ]]></script></p>
-<p>Account Balance:<script>// <![CDATA[
-printAccountBalance();
-// ]]></script></p>
 <script>// <![CDATA[
+printAccountBalance();
+// ]]></script><script>// <![CDATA[
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
