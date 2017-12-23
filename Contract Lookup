@@ -1,21 +1,21 @@
 <script>// <![CDATA[
-web3 = new Web3(new Web3.providers.HttpProvider("https://mainnet.infura.io/bHphL2nrfi5fXAb3UvAY"));
+web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/bHphL2nrfi5fXAb3UvAY"));
 
-		function printAccountBalance() {
-				var GET = {};
-				var query = window.location.search.substring(1).split("&");
-				for (var i = 0, max = query.length; i < max; i++)
-				{
-					if (query[i] === "") // check for trailing & with no param
-						continue;
-					var param = query[i].split("=");
-					GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
-				}
-				var account = GET.account;
+function SearchBlockchainforSmartVows() {
+        var GET = {};
+        var query = window.location.search.substring(1).split("&");
+        for (var i = 0, max = query.length; i < max; i++)
+	{
+		if (query[i] === "") // check for trailing & with no param
+		continue;
+		var param = query[i].split("=");
+		GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+	}
+	var account = GET.account;
 
 var abi = 
-[{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"messages","outputs":[{"name":"date","type":"uint256"},{"name":"nameFrom","type":"string"},{"name":"text","type":"string"},{"name":"url","type":"string"},{"name":"value","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"nameFrom","type":"string"},{"name":"text","type":"string"},{"name":"url","type":"string"}],"name":"sendMessage","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"marriageDate","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"majorEvents","outputs":[{"name":"date","type":"uint256"},{"name":"name","type":"string"},{"name":"description","type":"string"},{"name":"url","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"name","type":"string"},{"name":"description","type":"string"},{"name":"url","type":"string"}],"name":"setMajorEvent","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"acceptOwnership","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"partner2","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"partner1","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_newOwner","type":"address"}],"name":"changeOwner","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_dst","type":"address"},{"name":"_value","type":"uint256"},{"name":"_data","type":"bytes"}],"name":"execute","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"status","type":"string"},{"name":"url","type":"string"}],"name":"setStatus","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"vows","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"marriageStatus","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"newOwner","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"numberOfMajorEvents","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_partner1","type":"string"},{"name":"_partner2","type":"string"},{"name":"_vows","type":"string"},{"name":"url","type":"string"}],"name":"createMarriage","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[],"name":"numberOfMessages","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_owner","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"description","type":"string"},{"indexed":false,"name":"url","type":"string"}],"name":"MajorEvent","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"name","type":"string"},{"indexed":false,"name":"description","type":"string"},{"indexed":false,"name":"url","type":"string"},{"indexed":false,"name":"value","type":"uint256"}],"name":"MessageSent","type":"event"}]
-;
+[ { "constant": true, "inputs": [], "name": "witness", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "officiant", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "owner", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_address", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_name", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "marriageLicenceImageIPFShash", "outputs": [ { "name": "", "type": "bytes" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_vows", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_voted_update_prenup", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_voted_update_marriage_status", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_signed", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_name", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "maritalStatus", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "weddingDate", "outputs": [ { "name": "", "type": "uint256" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "location", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_vows", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [ { "name": "", "type": "uint256" } ], "name": "lifeEvents", "outputs": [ { "name": "date", "type": "uint256" }, { "name": "name", "type": "string" }, { "name": "description", "type": "string" }, { "name": "mesg", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_voted_update_prenup", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "is_signed", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_voted_update_marriage_status", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "coupleImageIPFShash", "outputs": [ { "name": "", "type": "bytes" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner1_signed", "outputs": [ { "name": "", "type": "bool" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "prenupAgreement", "outputs": [ { "name": "", "type": "string" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": true, "inputs": [], "name": "partner2_address", "outputs": [ { "name": "", "type": "address" } ], "payable": false, "stateMutability": "view", "type": "function" }, { "constant": false, "inputs": [ { "name": "_prenupAgreement", "type": "string" } ], "name": "updatePrenup", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "name": "_partner1", "type": "string" }, { "name": "_partner1_address", "type": "address" }, { "name": "_partner2", "type": "string" }, { "name": "_partner2_address", "type": "address" }, { "name": "_weddingDate", "type": "uint256" }, { "name": "_maritalStatus", "type": "string" }, { "name": "_officiant", "type": "string" }, { "name": "_witness", "type": "string" }, { "name": "_location", "type": "string" }, { "name": "_coupleImageIPFShash", "type": "bytes" }, { "name": "_marriageLicenceImageIPFShash", "type": "bytes" } ], "payable": false, "stateMutability": "nonpayable", "type": "constructor" }, { "constant": false, "inputs": [], "name": "voteToUpdateMaritalStatus", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "sign", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_coupleImageIPFShash", "type": "bytes" } ], "name": "updateCoupleImageIPFShash", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "anonymous": false, "inputs": [ { "indexed": false, "name": "name", "type": "string" }, { "indexed": false, "name": "description", "type": "string" }, { "indexed": false, "name": "mesg", "type": "string" } ], "name": "LifeEvent", "type": "event" }, { "anonymous": false, "inputs": [ { "indexed": true, "name": "previousOwner", "type": "address" }, { "indexed": true, "name": "newOwner", "type": "address" } ], "name": "OwnershipTransferred", "type": "event" }, { "constant": false, "inputs": [ { "name": "name", "type": "string" }, { "name": "description", "type": "string" }, { "name": "mesg", "type": "string" } ], "name": "addLifeEvent", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [], "name": "voteToUpdatePrenup", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_maritalStatus", "type": "string" } ], "name": "updateMaritalStatus", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "newOwner", "type": "address" } ], "name": "transferOwnership", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_partner2_vows", "type": "string" } ], "name": "updatePartner2_vows", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_partner1_vows", "type": "string" } ], "name": "updatePartner1_vows", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" }, { "constant": false, "inputs": [ { "name": "_marriageLicenceImageIPFShash", "type": "bytes" } ], "name": "updateMarriageLicenceImageIPFShash", "outputs": [], "payable": false, "stateMutability": "nonpayable", "type": "function" } ];
+
 var MyContract = web3.eth.contract(abi);
 
 // initiate contract for an address
@@ -23,31 +23,45 @@ var myContractInstance = MyContract .at(account);
 
 // call constant function (synchronous way)
 var owner = myContractInstance .owner.call();
-document.write(owner + ' Owner');	
+var partner1_name = myContractInstance .partner1_name.call();
+var partner1_address = myContractInstance .partner1_address.call();
+var partner1_vows = myContractInstance .partner1_vows.call();
+var partner1_signed = myContractInstance .partner1_signed.call();
 
-var partner = myContractInstance .partner1.call();
-document.write('<br><br>Partner= ' + partner);	
+var partner2_name = myContractInstance .partner2_name.call();
+var partner2_address = myContractInstance .partner2_address.call();
+var partner2_vows = myContractInstance .partner2_vows.call();
+var partner2_signed = myContractInstance .partner2_signed.call();
+var is_signed = myContractInstance .is_signed.call();
 
+//var marriageDate = myContractInstance .marriageDate.call();
+var maritalStatus = myContractInstance .maritalStatus.call();
 
-
-
-
-		}
+document.write('<br /><br />Contract Address= ' + account); 
+document.write('<br /><br />Contract Owner= ' + owner); 
+document.write('<br /><br />'); document.write('<br /><br />Partner1 Name= ' + partner1_name); 
+document.write('<br /><br />Partner2 Name= ' + partner2_name); 
+document.write('<br /><br />'); 
+document.write('<br /><br />Partner1 Wallet Address= ' + partner1_address); 
+document.write('<br /><br />Partner2 Wallet Address= ' + partner2_address); 
+document.write('<br /><br />'); 
+document.write('<br /><br />Partner1 Vows= ' + partner1_vows); 
+document.write('<br /><br />Partner2 Vows= ' + partner2_vows); 
+document.write('<br /><br />'); 
+//document.write('<br /><br />Marriage Date= ' + marriageDate); 
+document.write('<br /><br />Marital Status= ' + maritalStatus); 
+document.write('<br /><br />'); 
+document.write('<br /><br />Partner1 Signed?= ' + partner1_signed); 
+document.write('<br /><br />Partner2 Signed?= ' + partner2_signed); 
+document.write('<br /><br />Both Partners Signed?= ' + is_signed);
+}
 // ]]></script>
 <h2>Ethereum Account Explorer built on INFURA</h2>
-<form method="GET" action="testpage2">Enter an account: <input type="text" size="50" name="account" /><input type="submit" /></form>
+<form method="GET" action="search-blockchain">Enter a SmartVows contract address: <input type="text" size="50" name="account" /><input type="submit" /></form>
 <br />
-<p>Latest Block:<script>// <![CDATA[
+<p>Latest Ethereum Block Number:<script>// <![CDATA[
 document.write(web3.eth.blockNumber + "<br><br>");
 // ]]></script></p>
 <script>// <![CDATA[
-printAccountBalance();
-// ]]></script><script>// <![CDATA[
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-55627494-1', 'auto');
-  ga('send', 'pageview');
+SearchBlockchainforSmartVows();
 // ]]></script>
