@@ -20,7 +20,7 @@ contract SmartVows is Ownable, Util {
     string public partner2_vows;
 
     // Marriage Date
-    uint256 public MarriageDate;
+    uint256 public marriageDate;
 
     //Marital Status
     string public maritalStatus;
