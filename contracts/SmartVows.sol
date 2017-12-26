@@ -19,8 +19,8 @@ contract SmartVows is Ownable, Util {
     string public partner1_vows;
     string public partner2_vows;
 
-    // Wedding Date
-    uint256 public marriageDate;
+    // Marriage Date
+    uint256 public MarriageDate;
 
     //Marital Status
     string public maritalStatus;
@@ -37,6 +37,10 @@ contract SmartVows is Ownable, Util {
     //prenup Image
     //bytes public prenupImage
     
+    //Last Will and Testaments
+    string public partner1_will;
+    string public partner2_will;
+
     // Partners Signed Marriage Contract
     bool public partner1_signed;
     bool public partner2_signed;
@@ -90,7 +94,7 @@ contract SmartVows is Ownable, Util {
         saveLifeEvent("Marriage", "Blockchain Marriage contract created","");
         
         //Transfer ownership from SmartVows to Partner 1
-        //transferOwnership(partner1_address);
+        transferOwnership(partner1_address);
     }
 
     // Add Life event, either partner can update
@@ -134,10 +138,6 @@ contract SmartVows is Ownable, Util {
         }else {
             partner2_signed = true;
         }
-        // if both signed then make the contract as signed
-        if(partner1_signed && partner2_signed){
-            is_signed = true;
-        }
         saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)),"");
     }
     
@@ -180,5 +180,17 @@ contract SmartVows is Ownable, Util {
         partner1_voted_update_prenup = false;
         partner2_voted_update_prenup = false;
     }
-
+     
+    // Update partner 1 will, only partner 1 can update
+    function updatePartner1_will(string _partner1_will) public {
+        require(msg.sender == partner1_address);
+        partner1_will = _partner1_will;
+    }
+  
+    // Update partner 2 will, only partner 2 can update
+    function updatePartner2_will(string _partner2_will) public {
+        require(msg.sender == partner2_address);
+        partner2_will = _partner2_will;
+    }
+    
 }
