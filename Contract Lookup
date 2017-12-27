@@ -34,11 +34,24 @@ var partner2_vows = myContractInstance .partner2_vows.call();
 var partner2_signed = myContractInstance .partner2_signed.call();
 var is_signed = myContractInstance .is_signed.call();
 
+var partner1_VotedToChangeMarriageStatus = myContractInstance .partner1_voted_update_marriage_status.call();
+var partner2_VotedToChangeMarriageStatus = myContractInstance .partner2_voted_update_marriage_status.call();
+
+var partner1_VotedToUpdatePrenup = myContractInstance .partner1_voted_update_prenup.call();
+var partner2_VotedToUpdatePrenup = myContractInstance .partner2_voted_update_prenup.call();
+
+//var partner1_will = myContractInstance .partner1_will.call();
+//var partner2_will = myContractInstance .partner2_will.call();
+var prenupAgreement = myContractInstance .prenupAgreement.call();
+
 //var marriageDate = myContractInstance .marriageDate.call();
 var maritalStatus = myContractInstance .maritalStatus.call();
 
-document.write('<br /><br />Contract Address= ' + account); 
-document.write('<br /><br />Contract Owner= ' + owner); 
+document.write('<center><h1><b>CONTRACT</b></h1></center>');
+document.write('<center><h3>SmartVows Blockchain Marriage Contract</h3></center>');
+
+document.write('<form action=\"\">Contract Address:<br><input type=\"text\" size=\"50\" name=\"contract_address\"value=\"' + account + '\"><br>Contract Owner:<br><input type=\"text\" size=\"50\" name=\"contract_owner\"value=\"' + owner + '\"></form><br><br> ');
+
 document.write('<br /><br />'); document.write('<br /><br />Partner1 Name= ' + partner1_name); 
 document.write('<br /><br />Partner2 Name= ' + partner2_name); 
 document.write('<br /><br />'); 
@@ -46,17 +59,31 @@ document.write('<br /><br />Partner1 Wallet Address= ' + partner1_address);
 document.write('<br /><br />Partner2 Wallet Address= ' + partner2_address); 
 document.write('<br /><br />'); 
 document.write('<br /><br />Partner1 Vows= ' + partner1_vows); 
-document.write('<br /><br />Partner2 Vows= ' + partner2_vows); 
-document.write('<br /><br />'); 
+document.write('<br /><br />Partner2 Vows= ' + partner2_vows);  
 //document.write('<br /><br />Marriage Date= ' + marriageDate); 
 document.write('<br /><br />Marital Status= ' + maritalStatus); 
-document.write('<br /><br />'); 
-document.write('<br /><br />Partner1 Signed?= ' + partner1_signed); 
-document.write('<br /><br />Partner2 Signed?= ' + partner2_signed); 
-document.write('<br /><br />Both Partners Signed?= ' + is_signed);
+document.write('<br />Partner 1 voted to change Marital Status= ' + partner1_VotedToChangeMarriageStatus); 
+document.write('<br />Partner 2 voted to change Marital Status= ' + partner2_VotedToChangeMarriageStatus); 
+
+document.write('<br /><br />Partner1 Signed= ' + partner1_signed); 
+document.write('<br />Partner2 Signed= ' + partner2_signed); 
+document.write('<br />Marriage Contract signed by both partners= ' + is_signed);
+
+document.write('<br /><br />Prenuptial Agreement= ' + prenupAgreement); 
+
+document.write('<br /><br />Partner 1 voted to update Prenup= ' + partner1_VotedToUpdatePrenup); 
+document.write('<br />Partner 2 voted to update Prenup= ' + partner2_VotedToUpdatePrenup); 
+
+document.write('<br /><br />Partner1 Last Wil & Testamentl= ' + partner1_will); 
+document.write('<br /><br />Partner2 Last Wil & Testamentl= ' + partner2_will); 
+
+
+
 }
 // ]]></script>
-<h2>Ethereum Account Explorer built on INFURA</h2>
+<center>Ethereum Account Explorer built on INFURA</center>
+<center>Sample: 0x648536db490bd9f8ad67e36b22ba96495a4cb190</center>
+<br />
 <form method="GET" action="search-blockchain">Enter a SmartVows contract address: <input type="text" size="50" name="account" /><input type="submit" /></form>
 <br />
 <p>Latest Ethereum Block Number:<script>// <![CDATA[
