@@ -47,50 +47,30 @@ var prenupAgreement = myContractInstance .prenupAgreement.call();
 var marriageDateString = myContractInstance .marriageDateString.call();
 var maritalStatus = myContractInstance .maritalStatus.call();
 
-document.write('<center><h1><b>CONTRACT</b></h1></center>');
+var location= myContractInstance .location.call();
+var witness= myContractInstance .witness.call();
+var officiant= myContractInstance .officiant.call();
+var marriageLicenceImageIPFShash= myContractInstance .marriageLicenceImageIPFShash.call();
+var coupleImageIPFShash= myContractInstance .coupleImageIPFShash.call();
+
+
+document.write('<center><h1><b><br>CONTRACT</b></h1></center>');
 document.write('<center><h3>SmartVows Blockchain Marriage Contract</h3></center>');
 
 //document.write(myContractInstance .partner1_will.call());
 
-document.write('<table style="width:100%"><tr><td>Contract Address<br><input type=\"text\" size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" size=\"50\" value=\"' + marriageDateString + '\"></td><td>Marriage Status<br><input type=\"text\" size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Partner 1 Vows<br><input type=\"text\" size=\"50\" value=\"' + partner1_vows + '\"></td><td>Partner 2 Vows<br><input type=\"text\" size=\"50\" value=\"' + partner2_vows + '\"><br></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea rows=\"10\" cols=\"100\">' + prenupAgreement + '\"></textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea rows=\"10\" cols=\"100\">' + partner1_will + '\"></textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea rows=\"10\" cols=\"100\">' + partner2_will + '\"></textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr><tr><td>Partner 1 voted to update prenuptial agreement<br><input type=\"text\" size=\"50\" value=\"' + partner1_VotedToUpdatePrenup + '\"></td><td>Partner 2 voted to update the prenuptial agreement<br><input type=\"text\" size=\"50\" value=\"' + partner2_VotedToUpdatePrenup + '\"><br></td><tr><tr><td>Partner 1 voted to update marital status<br><input type=\"text\" size=\"50\" value=\"' + partner1_VotedToChangeMarriageStatus + '\"></td><td>Partner 2 voted to update marital status<br><input type=\"text\" size=\"50\" value=\"' + partner2_VotedToChangeMarriageStatus + '\"><br></td></tr></table>');
-
-document.write('<br /><br />'); document.write('<br /><br />Partner1 Name= ' + partner1_name); 
-document.write('<br /><br />Partner2 Name= ' + partner2_name); 
-document.write('<br /><br />'); 
-document.write('<br /><br />Partner1 Wallet Address= ' + partner1_address); 
-document.write('<br /><br />Partner2 Wallet Address= ' + partner2_address); 
-document.write('<br /><br />'); 
-document.write('<br /><br />Partner1 Vows= ' + partner1_vows); 
-document.write('<br /><br />Partner2 Vows= ' + partner2_vows);  
-document.write('<br /><br />Marriage Date= ' + marriageDateString); 
-document.write('<br />Marital Status= ' + maritalStatus); 
-document.write('<br />Partner 1 voted to change Marital Status= ' + partner1_VotedToChangeMarriageStatus); 
-document.write('<br />Partner 2 voted to change Marital Status= ' + partner2_VotedToChangeMarriageStatus); 
-
-document.write('<br /><br />Partner1 Signed= ' + partner1_signed); 
-document.write('<br />Partner2 Signed= ' + partner2_signed); 
-document.write('<br />Marriage Contract signed by both partners= ' + is_signed);
-
-document.write('<br /><br />Prenuptial Agreement= ' + prenupAgreement); 
-
-document.write('<br /><br />Partner 1 voted to update Prenup= ' + partner1_VotedToUpdatePrenup); 
-document.write('<br />Partner 2 voted to update Prenup= ' + partner2_VotedToUpdatePrenup); 
-
-document.write('<br /><br />Partner1 Last Wil & Testamentl= ' + partner1_will); 
-document.write('<br /><br />Partner2 Last Wil & Testamentl= ' + partner2_will); 
-
-
+document.write('<table style="width:100%"><tr><td>Contract Address<br><input type=\"text\" size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" size=\"50\" value=\"' + marriageDateString + '\"></td><td>Marriage Status<br><input type=\"text\" size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Location<br><input type=\"text\" size=\"50\" value=\"' + location + '\"></td><td>Officiant<br><input type=\"text\" size=\"50\" value=\"' + officiant + '\"><br></td></tr><tr><td colspan="2" >Marriage Witness(es)<br><textarea cols=\"100\">' + witness + '</textarea></td></tr><tr><td>Partner 1 Vows<br><textarea rows=\"5\" cols=\"50\">' + partner1_vows + '</textarea></td><td>Partner 2 Vows<br><textarea rows=\"5\" cols=\"50\">' + partner2_vows + '</textarea></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea rows=\"10\" cols=\"100\">' + prenupAgreement + '</textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea rows=\"10\" cols=\"100\">' + partner1_will + '</textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea rows=\"10\" cols=\"100\">' + partner2_will + '</textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr><tr><td>Partner 1 voted to update prenuptial agreement<br><input type=\"text\" size=\"50\" value=\"' + partner1_VotedToUpdatePrenup + '\"></td><td>Partner 2 voted to update the prenuptial agreement<br><input type=\"text\" size=\"50\" value=\"' + partner2_VotedToUpdatePrenup + '\"><br></td></tr><tr><td>Partner 1 voted to update marital status<br><input type=\"text\" size=\"50\" value=\"' + partner1_VotedToChangeMarriageStatus + '\"></td><td>Partner 2 voted to update marital status<br><input type=\"text\" size=\"50\" value=\"' + partner2_VotedToChangeMarriageStatus + '\"><br></td></tr><tr><td>IPFS image hash of married couple<br><input type=\"text\" size=\"50\" value=\"' + coupleImageIPFShash + '\"></td><td>IPFS image hash of marriage proof<br><input type=\"text\" size=\"50\" value=\"' + marriageLicenceImageIPFShash + '\"><br></td></tr></table>');
 
 }
 // ]]></script>
 <center>Ethereum Account Explorer built on INFURA</center>
-<center>Sample: 0x648536db490bd9f8ad67e36b22ba96495a4cb190</center>
+<center>Sample: 0x72b6cc7c87dd48d0ddf8aa1abd3103f2e8ef9d78</center>
 <br />
 <form method="GET" action="search-blockchain">Enter a SmartVows contract address: <input type="text" size="50" name="account" /><input type="submit" /></form>
 <br />
-<p>Latest Ethereum Block Number:<script>// <![CDATA[
-document.write(web3.eth.blockNumber + "<br><br>");
-// ]]></script></p>
-<script>// <![CDATA[
+<p>Latest Ethereum Block Number: <b><script>// <![CDATA[
+document.write(web3.eth.blockNumber + "</b><br>");
+// ]]></script></b></p>
+(If the block number above is blank then you are not connected to the blockchain. Use Chrome or Firefox with Metamask plugins. Firefox on mobile with Metamask plugin is also supported.)<script>// <![CDATA[
 SearchBlockchainforSmartVows();
 // ]]></script>
