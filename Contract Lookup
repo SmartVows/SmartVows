@@ -1,5 +1,21 @@
 <script>// <![CDATA[
 web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/bHphL2nrfi5fXAb3UvAY"));
+function HexToAscii(str)
+{
+	hex = str;
+	hex = hex.match(/[0-9A-Fa-f]{2}/g);
+	len = hex.length;
+	if( len==0 ) return;
+	txt='';
+	for(i=0; i<len; i++)
+	{
+		h = hex[i];
+		code = parseInt(h,16);
+		t = String.fromCharCode(code);
+		txt += t;
+	}
+	return txt;
+}
 
 function SearchBlockchainforSmartVows() {
         var GET = {};
@@ -51,8 +67,9 @@ var location= myContractInstance .location.call();
 var witness= myContractInstance .witness.call();
 var officiant= myContractInstance .officiant.call();
 var marriageLicenceImageIPFShash= myContractInstance .marriageLicenceImageIPFShash.call();
+marriageLicenceImageIPFShash = HexToAscii(marriageLicenceImageIPFShash);
 var coupleImageIPFShash= myContractInstance .coupleImageIPFShash.call();
-
+coupleImageIPFShash = HexToAscii(coupleImageIPFShash);
 
 document.write('<center><h1><b><br>CONTRACT</b></h1></center>');
 document.write('<center><h3>SmartVows Blockchain Marriage Contract</h3></center>');
