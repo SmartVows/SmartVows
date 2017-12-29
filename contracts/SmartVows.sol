@@ -20,9 +20,10 @@ contract SmartVows is Ownable, Util {
     string public partner2_vows;
 
     // Marriage Date
-    uint256 public marriageDate;
+    string public marriageDate;
 
     //Marital Status
+    //string public maritalStatus;
     string public maritalStatus;
 
     // Couple Image Hash
@@ -33,9 +34,6 @@ contract SmartVows is Ownable, Util {
 
     // prenup Text
     string public prenupAgreement;
-    
-    //prenup Image
-    //bytes public prenupImage
     
     //Last Will and Testaments
     string public partner1_will;
@@ -59,8 +57,8 @@ contract SmartVows is Ownable, Util {
     // Officiant
     string public officiant;
 
-    // Witness
-    string public witness;
+    // Witnesses
+    string public witnesses;
 
     // Location of marriage
     string public location;
@@ -77,7 +75,7 @@ contract SmartVows is Ownable, Util {
     // Declare Life event structure
     event LifeEvent(string name, string description, string mesg);
         
-    function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, uint256 _marriageDate, string _maritalStatus, string _officiant, string _witness, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{        
+    function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, string _marriageDate, string _maritalStatus, string _officiant, string _witnesses, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{        
         partner1_name = _partner1;
         partner2_name = _partner2;  
         partner1_address=_partner1_address;
@@ -85,7 +83,7 @@ contract SmartVows is Ownable, Util {
         marriageDate =_marriageDate;
         maritalStatus = _maritalStatus;
         officiant=_officiant;
-        witness=_witness;
+        witnesses=_witnesses;
         location=_location;
         coupleImageIPFShash=_coupleImageIPFShash;
         marriageLicenceImageIPFShash=_marriageLicenceImageIPFShash;
@@ -94,7 +92,7 @@ contract SmartVows is Ownable, Util {
         saveLifeEvent("Marriage", "Blockchain Marriage contract created","");
         
         //Transfer ownership from SmartVows to Partner 1
-        transferOwnership(partner1_address);
+        //transferOwnership(partner1_address);
     }
 
     // Add Life event, either partner can update
@@ -122,7 +120,6 @@ contract SmartVows is Ownable, Util {
 
     // Update Marriage status, but only if both partners have previously agreed to update the prenup
     function updateMaritalStatus(string _maritalStatus) public {
-        //require(msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address);
         require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_update_marriage_status == true)&&(partner2_voted_update_marriage_status == true));
         maritalStatus = _maritalStatus;
         saveLifeEvent("Marriage status updated", strConcat("Marriage status updated by", toString(msg.sender)),"");
@@ -139,6 +136,9 @@ contract SmartVows is Ownable, Util {
             partner2_signed = true;
         }
         saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)),"");
+        if(partner1_signed && partner2_signed){// if both signed then make the contract as signed
+            is_signed = true;
+        }
     }
     
     //Function to vote to allow for updating marital status, both partners must vote true
