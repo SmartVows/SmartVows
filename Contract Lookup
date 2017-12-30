@@ -1,5 +1,33 @@
 <script>// <![CDATA[
 web3 = new Web3(new Web3.providers.HttpProvider("https://rinkeby.infura.io/bHphL2nrfi5fXAb3UvAY"));
+
+function convertTimestamp(timestamp) {
+  var d = new Date(timestamp * 1000),	// Convert the passed timestamp to milliseconds
+		yyyy = d.getFullYear(),
+		mm = ('0' + (d.getMonth() + 1)).slice(-2),	// Months are zero based. Add leading 0.
+		dd = ('0' + d.getDate()).slice(-2),			// Add leading 0.
+		hh = d.getHours(),
+		h = hh,
+		min = ('0' + d.getMinutes()).slice(-2),		// Add leading 0.
+		ampm = 'AM',
+		time;
+			
+	if (hh > 12) {
+		h = hh - 12;
+		ampm = 'PM';
+	} else if (hh === 12) {
+		h = 12;
+		ampm = 'PM';
+	} else if (hh == 0) {
+		h = 12;
+	}
+	
+	// ie: 2013-02-18, 8:35 AM	
+	time = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+		
+	return time;
+}
+
 function HexToAscii(str)
 {
 	hex = str;
@@ -69,12 +97,23 @@ marriageLicenceImageIPFShash = HexToAscii(marriageLicenceImageIPFShash);
 var coupleImageIPFShash= myContractInstance .coupleImageIPFShash.call();
 coupleImageIPFShash = HexToAscii(coupleImageIPFShash);
 
-document.write('<table style="width:100%"><tr><td colspan=\"2\"><center><h1><b><br>CONTRACT</b></h1></center></td></tr><tr><td colspan=\"2\"><center><h3>SmartVows Blockchain Marriage Contract</h3></center></td></tr><tr><td>Contract Address<br><input type=\"text\" readonly size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" readonly size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageDate + '\"></td><td>Marriage Status<br><input type=\"text\" readonly size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Location<br><input type=\"text\" readonly size=\"50\" value=\"' + location + '\"></td><td>Officiant<br><input type=\"text\" readonly size=\"50\" value=\"' + officiant + '\"><br></td></tr><tr><td>IPFS image hash of married couple<br><input type=\"text\" readonly size=\"50\" value=\"' + coupleImageIPFShash + '\"></td><td>IPFS image hash of marriage proof<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageLicenceImageIPFShash + '\"><br></td></tr><tr><td><img src=\"https://ipfs.io/ipfs/' + coupleImageIPFShash + '\" border=3></img></td><td><img src=\"https://ipfs.io/ipfs/' + marriageLicenceImageIPFShash + '\" border=3></img></td><tr><tr><td colspan="2" >Marriage Witness(es)<br><textarea readonly cols=\"100\">' + witnesses + '</textarea></td></tr><tr><td>Partner 1 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner1_vows + '</textarea></td><td>Partner 2 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner2_vows + '</textarea></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea readonly rows=\"10\" cols=\"100\">' + prenupAgreement + '</textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner1_will + '</textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner2_will + '</textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr><tr><td colspan=\"2\"><center><b><br><h3>Contract Maintenance</h3></b></center></td></tr><tr><td>Partner 1 voted to update prenuptial agreement<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_VotedToUpdatePrenup + '\"></td><td>Partner 2 voted to update the prenuptial agreement<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_VotedToUpdatePrenup + '\"><br></td></tr><tr><td>Partner 1 voted to update marital status<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_VotedToChangeMarriageStatus + '\"></td><td>Partner 2 voted to update marital status<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_VotedToChangeMarriageStatus + '\"><br></td></tr></table>');
+var lifeevent1 = myContractInstance.lifeEvents(0).toString();
+var lifeEvent1Array = lifeevent1.split(',');
+var lifeevent2 = myContractInstance.lifeEvents(1).toString();
+var lifeEvent2Array = lifeevent2.split(',');
+//var lifeevent3 = myContractInstance.lifeEvents(2).toString();
+//var lifeEvent3Array = lifeevent3.split(',');
+//var lifeevent4 = myContractInstance.lifeEvents(3).toString();
+//var lifeEvent4Array = lifeevent4.split(',');
+//var lifeevent5 = myContractInstance.lifeEvents(4).toString();
+//var lifeEvent5Array = lifeevent5.split(',');
+
+document.write('<table border="3px"style="width:100%"><tr><td colspan=\"2\"><center><h1><b><br>SMART CONTRACT</b></h1></center></td></tr><tr><td colspan=\"2\"><center><h3>SmartVows Blockchain Marriage Contract</h3></center></td></tr><tr><td>Contract Address<br><input type=\"text\" readonly size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" readonly size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageDate + '\"></td><td>Marriage Status<br><input type=\"text\" readonly size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Location<br><input type=\"text\" readonly size=\"50\" value=\"' + location + '\"></td><td>Officiant<br><input type=\"text\" readonly size=\"50\" value=\"' + officiant + '\"><br></td></tr><tr><td>IPFS image hash of married couple<br><input type=\"text\" readonly size=\"50\" value=\"' + coupleImageIPFShash + '\"></td><td>IPFS image hash of marriage proof<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageLicenceImageIPFShash + '\"><br></td></tr><tr><td><img src=\"https://ipfs.io/ipfs/' + coupleImageIPFShash + '\" border=3></img></td><td><img src=\"https://ipfs.io/ipfs/' + marriageLicenceImageIPFShash + '\" border=3></img></td><tr><tr><td colspan="2" >Marriage Witness(es)<br><textarea readonly cols=\"100\">' + witnesses + '</textarea></td></tr><tr><td>Partner 1 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner1_vows + '</textarea></td><td>Partner 2 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner2_vows + '</textarea></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea readonly rows=\"10\" cols=\"100\">' + prenupAgreement + '</textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner1_will + '</textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner2_will + '</textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr></table> <br><table style="width:100%"><tr><td colspan=\"4\"><center><b><br><h3>Life Events</h3></b></center></td></tr><tr><td>Date added</td><td>Name</td><td>Description</td><td>URL</td><tr><td><input type=\"text\" readonly value=\"' + convertTimestamp(lifeEvent1Array[0]) + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent1Array[1] + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent1Array[2] + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent1Array[3] + '\"></td></tr><tr><td><input type=\"text\" readonly value=\"' + convertTimestamp(lifeEvent2Array[0]) + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent2Array[1] + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent2Array[2] + '\"></td><td><input type=\"text\" size=\"50\" readonly value=\"' + lifeEvent2Array[3] + '\"></td></tr></table><table width=\"100%\"><tr><td colspan=\"2\"><center><b><br><h3>Contract Maintenance</h3></b></center></td></tr><tr><td>Partner 1 voted to update prenuptial agreement<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_VotedToUpdatePrenup + '\"></td><td>Partner 2 voted to update the prenuptial agreement<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_VotedToUpdatePrenup + '\"><br></td></tr><tr><td>Partner 1 voted to update marital status<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_VotedToChangeMarriageStatus + '\"></td><td>Partner 2 voted to update marital status<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_VotedToChangeMarriageStatus + '\"><br></td></tr></table> ');
 
 }
 // ]]></script>
 <center>Ethereum Account Explorer built on INFURA</center>
-<center>Sample: 0xfb17b347c94a6784f4af2f2167aea7bd8b01a7ab</center>
+<center>Sample: 0xa198e23f346e2f6a52baf5792cb31aa3af6c78c2</center>
 <br />
 <form method="GET" action="search-blockchain">Enter a SmartVows contract address: <input type="text" size="50" name="account" /><input type="submit" /></form>
 <br />
