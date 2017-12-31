@@ -23,7 +23,6 @@ contract SmartVows is Ownable, Util {
     string public marriageDate;
 
     //Marital Status
-    //string public maritalStatus;
     string public maritalStatus;
 
     // Couple Image Hash
@@ -51,8 +50,8 @@ contract SmartVows is Ownable, Util {
     bool public partner1_voted_update_marriage_status;
     bool public partner2_voted_update_marriage_status;
     
-    // signed the contract
-    bool public is_signed;
+    // Did both partners signed the contract
+     bool public is_signed;
     
     // Officiant
     string public officiant;
@@ -71,27 +70,12 @@ contract SmartVows is Ownable, Util {
         string description;
         string mesg;
     }
+    
+    uint public eventcount; 
 
     // Declare Life event structure
     event LifeEvent(string name, string description, string mesg);
-    
-    //   function getLifeEventsCount() public constant returns(uint) {
-    //    return lifeEvents.length;
-    //}
 
-    //    function getLifeEvent(uint index) public constant returns(string, string, string) {
-    //    return (lifeEvents[index].name, lifeEvents[index].description, lifeEvents[index].mesg);
-    //}
- 
- function getUsersCount() public constant returns(uint) {
-    return lifeEvents.length;
-}
-
-function getUser(uint index) public constant returns(string, string, string) {
-    return (lifeEvents[index].name, lifeEvents[index].description, lifeEvents[index].mesg);
-}
-
-        
     function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, string _marriageDate, string _maritalStatus, string _officiant, string _witnesses, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{        
         partner1_name = _partner1;
         partner2_name = _partner2;  
@@ -106,7 +90,7 @@ function getUser(uint index) public constant returns(string, string, string) {
         marriageLicenceImageIPFShash=_marriageLicenceImageIPFShash;
 
         //Record contract creation in events
-        saveLifeEvent("Marriage", "Blockchain Marriage contract created","");
+        saveLifeEvent("", "Blockchain Marriage contract","Marriage posted on the blockchain.");
         
     }
 
@@ -119,6 +103,7 @@ function getUser(uint index) public constant returns(string, string, string) {
     function saveLifeEvent(string name, string description, string mesg) private {
         lifeEvents.push(Event(block.timestamp, name, description, mesg));
         LifeEvent(name, description, mesg);
+        eventcount++;
     }
     
     // Update partner 1 vows only once
@@ -133,24 +118,26 @@ function getUser(uint index) public constant returns(string, string, string) {
         partner2_vows = _partner2_vows;
     }
 
-    // Update Marriage status, but only if both partners have previously agreed to update the prenup
+    // Update Marriage status only if both partners have previously voted to update the prenup
     function updateMaritalStatus(string _maritalStatus) public {
         require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_update_marriage_status == true)&&(partner2_voted_update_marriage_status == true));
+        saveLifeEvent("","Marital status updated", strConcat("Status changed from ", maritalStatus , " to ", _maritalStatus));
         maritalStatus = _maritalStatus;
-        saveLifeEvent("Marriage status updated", strConcat("Marriage status updated by", toString(msg.sender)),"");
         partner1_voted_update_marriage_status = false;
         partner2_voted_update_marriage_status = false;
     }
 
-    // Sign the contract, both partners should sign
+    // Partners can sign the contract
     function sign() public {
         require(msg.sender == partner1_address || msg.sender == partner2_address);
         if(msg.sender == partner1_address){
             partner1_signed = true;
+            saveLifeEvent("","Marriage signed", "Marriage signed by Partner 1");
         }else {
             partner2_signed = true;
+            saveLifeEvent("","Marriage signed", "Marriage signed by Partner 2");
         }
-        saveLifeEvent("Marriage signed", strConcat("Marriage signed by ", toString(msg.sender)),"");
+        
         if(partner1_signed && partner2_signed){// if both signed then make the contract as signed
             is_signed = true;
         }
@@ -160,19 +147,23 @@ function getUser(uint index) public constant returns(string, string, string) {
         function voteToUpdateMaritalStatus() public {
         if(msg.sender == partner1_address){
             partner1_voted_update_marriage_status = true;
+            saveLifeEvent("","Vote - Marital Status", "Partner 1 voted to updated Marital Status");
         }
         if(msg.sender == partner2_address){
             partner2_voted_update_marriage_status = true;
+            saveLifeEvent("","Vote - Marital Status", "Partner 2 voted to updated Marital Status");
         }
     }
     
-    //Function to vote to allow for updating prenup, both partners must vote true
+    //Function to vote to allow for updating prenup, both partners must vote true to allow update
     function voteToUpdatePrenup() public {
         if(msg.sender == partner1_address){
             partner1_voted_update_prenup = true;
+            saveLifeEvent("","Vote - Marital Status", "Partner 1 voted to updated Prenuptial Aggreement");
         }
         if(msg.sender == partner2_address){
             partner2_voted_update_prenup = true;
+            saveLifeEvent("","Vote - Marital Status", "Partner 2 voted to updated Prenuptial Aggreement");
         }
     }
 
@@ -192,6 +183,7 @@ function getUser(uint index) public constant returns(string, string, string) {
     function updatePrenup(string _prenupAgreement) public{
         require((msg.sender == owner || msg.sender == partner1_address || msg.sender == partner2_address) && (partner1_voted_update_prenup == true)&&(partner2_voted_update_prenup == true));
         prenupAgreement = _prenupAgreement;
+        saveLifeEvent("","Update - Prenup", "Prenuptial Agreement Updated");
         partner1_voted_update_prenup = false;
         partner2_voted_update_prenup = false;
     }
@@ -200,12 +192,14 @@ function getUser(uint index) public constant returns(string, string, string) {
     function updatePartner1_will(string _partner1_will) public {
         require(msg.sender == partner1_address);
         partner1_will = _partner1_will;
+        saveLifeEvent("","Update - Will", "Partner 1 Will Updated");
     }
   
     // Update partner 2 will, only partner 2 can update
     function updatePartner2_will(string _partner2_will) public {
         require(msg.sender == partner2_address);
         partner2_will = _partner2_will;
+        saveLifeEvent("","Update - Will", "Partner 2 Will Updated");
     }
     
 }
