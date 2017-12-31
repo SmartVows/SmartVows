@@ -74,6 +74,23 @@ contract SmartVows is Ownable, Util {
 
     // Declare Life event structure
     event LifeEvent(string name, string description, string mesg);
+    
+    //   function getLifeEventsCount() public constant returns(uint) {
+    //    return lifeEvents.length;
+    //}
+
+    //    function getLifeEvent(uint index) public constant returns(string, string, string) {
+    //    return (lifeEvents[index].name, lifeEvents[index].description, lifeEvents[index].mesg);
+    //}
+ 
+ function getUsersCount() public constant returns(uint) {
+    return lifeEvents.length;
+}
+
+function getUser(uint index) public constant returns(string, string, string) {
+    return (lifeEvents[index].name, lifeEvents[index].description, lifeEvents[index].mesg);
+}
+
         
     function SmartVows(string _partner1, address _partner1_address, string _partner2, address _partner2_address, string _marriageDate, string _maritalStatus, string _officiant, string _witnesses, string _location, bytes _coupleImageIPFShash, bytes _marriageLicenceImageIPFShash) public{        
         partner1_name = _partner1;
@@ -91,8 +108,6 @@ contract SmartVows is Ownable, Util {
         //Record contract creation in events
         saveLifeEvent("Marriage", "Blockchain Marriage contract created","");
         
-        //Transfer ownership from SmartVows to Partner 1
-        //transferOwnership(partner1_address);
     }
 
     // Add Life event, either partner can update
