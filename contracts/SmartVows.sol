@@ -159,11 +159,11 @@ contract SmartVows is Ownable, Util {
     function voteToUpdatePrenup() public {
         if(msg.sender == partner1_address){
             partner1_voted_update_prenup = true;
-            saveLifeEvent("","Vote - Marital Status", "Partner 1 voted to updated Prenuptial Aggreement");
+            saveLifeEvent("","Vote - Prenup", "Partner 1 voted to updated Prenuptial Aggreement");
         }
         if(msg.sender == partner2_address){
             partner2_voted_update_prenup = true;
-            saveLifeEvent("","Vote - Marital Status", "Partner 2 voted to updated Prenuptial Aggreement");
+            saveLifeEvent("","Vote - Prenup", "Partner 2 voted to updated Prenuptial Aggreement");
         }
     }
 
