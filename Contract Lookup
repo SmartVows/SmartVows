@@ -118,7 +118,7 @@ var eventcount = myContractInstance .eventcount.call();
 //var lifeevent5 = myContractInstance.lifeEvents(4).toString();
 //var lifeEvent5Array = lifeevent5.split(',');
 
-document.write('<table style="width: 100%;background: #EDEDEE;border:3px;border-radius: 10px;-moz-border-radius: 10px;-webkit-border-radius: 10px;"><tr><td colspan=\"2\"><center><h1><b><br>SMART CONTRACT</b></h1></center></td></tr><tr><td colspan=\"2\"><center><h3>SmartVows Blockchain Marriage Contract</h3></center></td></tr><tr><td>Contract Address<br><input type=\"text\" readonly size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" readonly size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageDate + '\"></td><td>Marriage Status<br><input type=\"text\" readonly size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Location<br><input type=\"text\" readonly size=\"50\" value=\"' + location + '\"></td><td>Officiant<br><input type=\"text\" readonly size=\"50\" value=\"' + officiant + '\"><br></td></tr><tr><td>IPFS image hash of married couple<br><input type=\"text\" readonly size=\"50\" value=\"' + coupleImageIPFShash + '\"></td><td>IPFS image hash of marriage proof<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageLicenceImageIPFShash + '\"><br></td></tr><tr><td><img src=\"https://ipfs.io/ipfs/' + coupleImageIPFShash + '\" border=3></img></td><td><img src=\"https://ipfs.io/ipfs/' + marriageLicenceImageIPFShash + '\" border=3></img></td><tr><tr><td colspan="2" >Marriage Witness(es)<br><textarea readonly cols=\"100\">' + witnesses + '</textarea></td></tr><tr><td>Partner 1 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner1_vows + '</textarea></td><td>Partner 2 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner2_vows + '</textarea></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea readonly rows=\"10\" cols=\"100\">' + prenupAgreement + '</textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner1_will + '</textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner2_will + '</textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr><tr><td colspan = "2"><table><tr><td colspan=\"4\"><center><b><h3>Contract and Life Events</h3></b></center></td></tr><tr><td><center>Date added</center></td><td><center>Event Date</center></td><td><center>Event Title</center></td><td><center>Description</center></td><tr>');
+document.write('<table style="width: 100%;background: #EDEDEE"><tr><td colspan=\"2\"><center><h1><b><br>SMART CONTRACT</b></h1></center></td></tr><tr><td colspan=\"2\"><center><h3>SmartVows Blockchain Marriage Contract</h3></center></td></tr><tr><td>Contract Address<br><input type=\"text\" readonly size=\"50\" value=\"' + account + '\"></td><td>Contract Owner<br><input type=\"text\" readonly size=\"50\" value=\"' + owner + '\"></td></tr><tr><td>Marriage Date<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageDate + '\"></td><td>Marriage Status<br><input type=\"text\" readonly size=\"50\" value=\"' + maritalStatus  + '\"></td></tr><tr><td>Partner 1 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_name + '\"></td><td>Partner 2 Name<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_name + '\"><br></td></tr><tr><td>Partner 1 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_address + '\"></td><td>Partner 2 Wallet Address<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_address + '\"><br></td></tr><tr><td>Location<br><input type=\"text\" readonly size=\"50\" value=\"' + location + '\"></td><td>Officiant<br><input type=\"text\" readonly size=\"50\" value=\"' + officiant + '\"><br></td></tr><tr><td>IPFS image hash of married couple<br><input type=\"text\" readonly size=\"50\" value=\"' + coupleImageIPFShash + '\"></td><td>IPFS image hash of marriage proof<br><input type=\"text\" readonly size=\"50\" value=\"' + marriageLicenceImageIPFShash + '\"><br></td></tr><tr><td><img src=\"https://ipfs.io/ipfs/' + coupleImageIPFShash + '\" border=3></img></td><td><img src=\"https://ipfs.io/ipfs/' + marriageLicenceImageIPFShash + '\" border=3></img></td><tr><tr><td colspan="2" >Marriage Witness(es)<br><textarea readonly cols=\"100\">' + witnesses + '</textarea></td></tr><tr><td>Partner 1 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner1_vows + '</textarea></td><td>Partner 2 Vows<br><textarea readonly rows=\"5\" cols=\"50\">' + partner2_vows + '</textarea></td></tr><tr><td colspan="2" >Prenuptial Agreement<br><textarea readonly rows=\"10\" cols=\"100\">' + prenupAgreement + '</textarea></td></tr></tr><tr><td colspan="2" >Partner 1 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner1_will + '</textarea></td><tr><td colspan="2" >Partner 2 Last Will & Testament<br><textarea readonly rows=\"10\" cols=\"100\">' + partner2_will + '</textarea></td></tr><tr><td>Partner 1 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner1_signed + '\"></td><td>Partner 2 Signed<br><input type=\"text\" readonly size=\"50\" value=\"' + partner2_signed + '\"><br></td></tr><tr><td colspan = "2"><table><tr><td colspan=\"4\"><center><b><h3>Contract and Life Events</h3></b></center></td></tr><tr><td><center>Date added</center></td><td><center>Event Date</center></td><td><center>Event Title</center></td><td><center>Description</center></td><tr>');
 
 for (i = 0; i < eventcount; i++)
   {
@@ -130,16 +130,23 @@ document.write('</table></td></tr></table><table style="width:100%;background:#E
 
 }
 // ]]></script>
-<table style="background: #EDEDEE; border: 3px; border-radius: 10px; -moz-border-radius: 10px; -webkit-border-radius: 10px;">
+<table style="background: #ffffff; opacity: .85;">
 <tbody>
 <tr>
 <td>
-<center>Ethereum Account Explorer built on INFURA</center>
+<center>
+<p style="font-size: 34px;">Search Ethereum Blockchain</p>
+Ethereum Contract Explorer built on INFURA. Latest Ethereum Block Number: <b><script>// <![CDATA[
+document.write(web3.eth.blockNumber + "</center></b>");
+// ]]></script></b></center>
 </td>
 </tr>
 <tr>
+<td>(If the block number above is blank then you are not connected to the blockchain. Use Chrome or Firefox with Metamask plugins. Firefox on mobile with Metamask plugin is also supported. See instructions for how to install MetaMask.)</td>
+</tr>
+<tr>
 <td>
-<center>Sample: 0x19b493892602a4b764d30888147b9310eed781fa</center>
+<center>Sample: <b>0x07e68e419e13c8440c6f15f85f60736b44daeda5</b></center>
 </td>
 </tr>
 <tr>
@@ -148,14 +155,10 @@ document.write('</table></td></tr></table><table style="width:100%;background:#E
 </td>
 </tr>
 <tr>
-<td>Latest Ethereum Block Number: <b><script>// <![CDATA[
-document.write(web3.eth.blockNumber + "</b><br>");
-// ]]></script></b></td>
-</tr>
-<tr>
-<td>(If the block number above is blank then you are not connected to the blockchain. Use Chrome or Firefox with Metamask plugins. Firefox on mobile with Metamask plugin is also supported.)<script>// <![CDATA[
-SearchBlockchainforSmartVows();
-// ]]></script></td>
+<td></td>
 </tr>
 </tbody>
 </table>
+<script>// <![CDATA[
+SearchBlockchainforSmartVows();
+// ]]></script>
