@@ -103,7 +103,7 @@ contract SmartVows is Ownable, Util {
         marriageLicenceImageIPFShash=_marriageLicenceImageIPFShash;
 
         //Record contract creation in events
-        saveContractEvent("Blockchain marriage contract created","Marriage posted on the blockchain");
+        saveContractEvent("Blockchain marriage smart contract created","Marriage smart contract placed on the blockchain");
         
     }
 
